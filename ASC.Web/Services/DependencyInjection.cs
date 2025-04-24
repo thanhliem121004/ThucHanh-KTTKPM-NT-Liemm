@@ -5,11 +5,14 @@ using ASC.Web.Configuration;
 using ASC.Web.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using ASC.Business.Interfaces;
+using ASC.Business;
 
 namespace ASC.Web.Services
 {
     public static class DependencyInjection
     {
+
         // Config services
         public static IServiceCollection AddCongfig(this IServiceCollection services, IConfiguration config)
         {
@@ -65,7 +68,13 @@ namespace ASC.Web.Services
             services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddControllersWithViews();
 
+            //Add MasterDataOperations
+            services.AddScoped<IMasterDataOperations, MasterDataOperations>();
+            services.AddAutoMapper(typeof(ApplicationDbContext));
+            //end hihihi
+
             return services;
         }
+
     }
 }
